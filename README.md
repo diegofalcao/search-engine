@@ -9,6 +9,8 @@ Formulas:
 - Formula for document tf(term frequency) is (1 + log([tf]));
 - Formula for term idf is log([number of documents in the collection] / [total number of documents that contains the term]).
 
+To generate the cossene, the program is not using the query magnitude to normalize the cossene values between 0 and 1. So, if you look in the screenshot section, the values in the 'Relevance' column are out of this range.
+
 The document collection consists of 23155 documents which are product descriptions of dresses. This collection can be found in the 'dataset' folder.
 
 How to compile
