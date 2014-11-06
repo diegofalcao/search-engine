@@ -17,3 +17,8 @@ How to compile
 search-engine depends on libxml2 to parse the input XML file. So, in order to compile the program you should set the path to this dependency in the gcc as follow:
 
 gcc search-engine.c -I[path_to_libxml2_in_your_OS] -lxml2 -o search-engine
+
+Screenshot
+=============
+In the picture below you can see the program running and its output for an specific query.
+![search-engine-running-screenshot](https://cloud.githubusercontent.com/assets/9353351/4945300/56b4e85a-6606-11e4-8c75-bf78d701d2a3.png)
