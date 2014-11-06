@@ -119,8 +119,6 @@ void generateDocMagnitudeAndVocabularyTermsIDF() {
 
 				term->idf = log((double)NUM_OF_DOCUMENTS / term->totalNumOfDocuments);
                 
-  				//printf("\nTERM IDF %s : %lf", term->name, term->idf);
-
 				Document *documentTmp = term->document;
 				
 				for (; documentTmp != NULL; documentTmp = documentTmp->next) {
@@ -138,12 +136,6 @@ void generateDocMagnitudeAndVocabularyTermsIDF() {
 		}
         
 		entryTmp->magnitude = sqrt(entryTmp->magnitude);
-        
-        if (entryTmp->magnitude <= 0.000000) {
-            printf("\nENTRY NAME: %s and SUM: %lf", entryTmp->documentName, entryTmp->sum);
-        }
-        
-		//printf("\DOCUMENT %s MAGNITUDE: %lf", entryTmp->documentName, entryTmp->magnitude);
 	}
 }
 
@@ -152,10 +144,6 @@ void generateDocMagnitudeAndVocabularyTermsIDF() {
  */
 unsigned int indexTerm(const char documentId[], const char documentName[], char termName[]) {
 	unsigned int position;
-	
-    if (strcmp(documentName, "1592_Blusa_Ciclista_em_preto_com_detalhe_transparente_1032221.jpBlusa") == 0) {
-        printf("\nDOCUMENT BALEADO");
-    }
     
     normalizeTerm(termName);
     
@@ -174,10 +162,6 @@ unsigned int indexTerm(const char documentId[], const char documentName[], char 
 	document->term = termName;
 	document->tf = 1;
 	document->next = NULL;
-
-    if (strcmp(document->name, "1592_Blusa_Ciclista_em_preto_com_detalhe_transparente_1032221.jpBlusa") == 0) {
-        printf("\nDOCUMENT BALEADO DENTRO DA STRUCT");
-    }
 
 	/* Empty position, just include the new term here */
 	if (vocabulary[position] == NULL) {
@@ -420,9 +404,8 @@ void searchByVectorModel(char termName[]) {
 		}
 
 		Entry *entry = results[x];
-        
-        /* FIXME magnitude is 0 when documents is 5000 for query 'o'. Why? */
-		double cos = entry->sum / entry->magnitude;
+
+        double cos = entry->sum / entry->magnitude;
         
         printf("    %-6s\t%-23lf\t%-12s\n", entry->documentId, cos, entry->documentName);
         
@@ -562,7 +545,7 @@ void printVocabulary() {
 int main(void) {
 	char query[QUERY_SIZE] = { 0 };
 	
-    processXMLData("textDescDafitiPosthaus.xml");
+    processXMLData("../dataset/textDescDafitiPosthaus.xml");
     
 	while (true) {
 		printf("\nPlease, input the text to search or " ANSI_COLOR_RED "!q" ANSI_COLOR_RESET " to exit: ");
