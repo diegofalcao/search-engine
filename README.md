@@ -9,7 +9,7 @@ Formulas:
 - Formula for document tf(term frequency) is (1 + log([tf]));
 - Formula for term idf is log([number of documents in the collection] / [total number of documents that contains the term]).
 
-The document collection consists of 27155 documents which are product descriptions of dresses. This collection can be found in the 'dataset' folder.
+The document collection consists of 23155 documents which are product descriptions of dresses. This collection can be found in the 'dataset' folder.
 
 How to compile
 =============
