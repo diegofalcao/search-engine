@@ -464,6 +464,43 @@ void removeNewLineCharFromString(char *str) {
 }
 
 /*
+ * Creates and populates a product struct based on a XML cursor
+ */
+Product *createPopulatedStructProduct(xmlNodePtr in_cur) {
+	
+	Product *newProduct = (Product *) malloc(sizeof(Product));
+
+	while (in_cur != NULL) {
+		if(!xmlStrcmp(in_cur->name, (const xmlChar *) "id")) {
+			newProduct->id = (char *) in_cur->children->content;
+		}
+
+		if(!xmlStrcmp(in_cur->name, (const xmlChar *) "descricao")) {
+			newProduct->description = (char *) in_cur->children->content;
+		}
+
+		if(!xmlStrcmp(in_cur->name, (const xmlChar *) "preco")) {
+			newProduct->price = (char *) in_cur->children->content;
+		}
+
+		if(!xmlStrcmp(in_cur->name, (const xmlChar *) "img")) {
+			newProduct->imgFileName = (char *) in_cur->children->content;
+		}
+
+		if(!xmlStrcmp(in_cur->name, (const xmlChar *) "titulo")) {
+			newProduct->title = (char *) in_cur->children->content;
+		}
+
+		if(!xmlStrcmp(in_cur->name, (const xmlChar *) "categoria")) {
+			newProduct->category = (char *) in_cur->children->content;
+		}
+
+		in_cur = in_cur->next;
+	}
+
+	return newProduct;
+}
+/*
  * Generate the inverted index processing a XML file
  */
 void processXMLData(const char datasetFileName[]) {
@@ -504,38 +541,10 @@ void processXMLData(const char datasetFileName[]) {
 	while (cur != NULL && numOfDocuments < NUM_OF_DOCUMENTS) {
 
 		if (!xmlStrcmp(cur->name, (const xmlChar *) "produto")) {
-			xmlNodePtr in_cur = cur->xmlChildrenNode;
 			
             currentProduct = (Product *) realloc(currentProduct, sizeof(Product));
-
-			while (in_cur != NULL) {
-				if(!xmlStrcmp(in_cur->name, (const xmlChar *) "id")) {
-					currentProduct->id = (char *) in_cur->children->content;
-				}
-
-				if(!xmlStrcmp(in_cur->name, (const xmlChar *) "descricao")) {
-					currentProduct->description = (char *) in_cur->children->content;
-				}
-
-				if(!xmlStrcmp(in_cur->name, (const xmlChar *) "preco")) {
-					currentProduct->price = (char *) in_cur->children->content;
-				}
-
-				if(!xmlStrcmp(in_cur->name, (const xmlChar *) "img")) {
-					currentProduct->imgFileName = (char *) in_cur->children->content;
-				}
-
-				if(!xmlStrcmp(in_cur->name, (const xmlChar *) "titulo")) {
-					currentProduct->title = (char *) in_cur->children->content;
-				}
-
-				if(!xmlStrcmp(in_cur->name, (const xmlChar *) "categoria")) {
-					currentProduct->category = (char *) in_cur->children->content;
-				}
-
-				in_cur = in_cur->next;
-			}
-
+			currentProduct = createPopulatedStructProduct(cur->xmlChildrenNode);
+			
 			indexEntry(currentProduct);
 
             numOfDocuments++;
