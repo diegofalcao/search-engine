@@ -21,38 +21,38 @@
 
 /* This struct represents the dataset structure */
 typedef struct Product {
-	char *id;
-	char *title;
-	char *category;
-	char *price;
-	char *description;
-	char *imgFileName;
+    char *id;
+    char *title;
+    char *category;
+    char *price;
+    char *description;
+    char *imgFileName;
 } Product;
 
 /* This struct represents all the existent documents and its magnitudes */
 typedef struct Entry {
-	char *documentId;
+    char *documentId;
     char *documentName;
-	double magnitude; /* vector magnitude */
-	double sum; /* accumulator (wi,j) */
+    double magnitude; /* vector magnitude */
+    double sum; /* accumulator (wi,j) */
 } Entry;
 
 /* This struct represents the documents of the collection */
 typedef struct Document {
     const char *id;
     const char *name;
-	const char *term;
-	int tf; /* term frequency. The variable is named as 'tf' because the literature refers as it */
-	struct Document *next;
+    const char *term;
+    int tf; /* term frequency. The variable is named as 'tf' because the literature refers as it */
+    struct Document *next;
 } Document;
 
 /* This struct represents the indexed terms */
 typedef struct Term {
-	const char *name;
-	int totalNumOfOccurrences;
-	int totalNumOfDocuments;
-	double idf;
-	struct Term *next;
+    const char *name;
+    int totalNumOfOccurrences;
+    int totalNumOfDocuments;
+    double idf;
+    struct Term *next;
     struct Document *document;
 } Term;
 
