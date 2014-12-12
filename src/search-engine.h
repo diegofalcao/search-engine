@@ -8,6 +8,8 @@
 #define MAX_SEARCH_RESULT 10
 /* Size of the document name */
 #define DOCUMENT_NAME_SIZE 70
+/* Number of queries to be evaluated */
+#define NUMBER_OF_QUERIES_TO_EVAL 1
 
 /* Just for printf colors purposes */
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -59,4 +61,4 @@ typedef struct Term {
 /*
  * Generate the inverted index processing a XML file
  */
-void processXMLData(const char datasetFileName[]);
+int processXMLData(const char datasetFileName[]);
