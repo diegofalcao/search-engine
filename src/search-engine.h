@@ -1,15 +1,15 @@
 /* Size of the collection of documents */
-#define NUM_OF_DOCUMENTS 5000 //23155
+#define NUM_OF_DOCUMENTS 23155
 /* Number of terms that should be indexed */
-#define NUM_OF_TERMS 1000 //10000
+#define NUM_OF_TERMS NUM_OF_DOCUMENTS * 1296
 /* Size of the user query */
-#define QUERY_SIZE 20
+#define QUERY_SIZE 863 * 1296
 /* Max size of the search result */
 #define MAX_SEARCH_RESULT 10
 /* Size of the document name */
 #define DOCUMENT_NAME_SIZE 70
 /* Number of queries to be evaluated */
-#define NUMBER_OF_QUERIES_TO_EVAL 1
+#define NUMBER_OF_QUERIES_TO_EVAL 50 // 50 is the maximum value considering the given evaluated results
 
 /* Just for printf colors purposes */
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -35,7 +35,7 @@ typedef struct Product {
 typedef struct Entry {
     char *documentId;
     char *documentName;
-    double magnitude; /* vector magnitude */
+    double magnitude; /* vector magnitude without sqrt()*/
     double sum; /* accumulator (wi,j) */
 } Entry;
 
