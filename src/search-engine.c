@@ -1038,7 +1038,17 @@ int main(int argc, char **argv) {
         }
         
         if (strcmp(query, "!m") == 0) {
+            clock_t begin, end;
+            
+            begin = clock();
+            
             evaluateModelByMAPAndPat10(argv[1]);
+            
+            end = clock();
+
+            double searchTimeSpent = (double)(end - begin) / CLOCKS_PER_SEC;
+            
+            printf("\nTime spent: %lf seconds", searchTimeSpent);
         } else {
             if(strcmp(argv[1], "1") == 0) {
                 searchByVectorModel(query, true, NULL);
