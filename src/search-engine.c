@@ -261,7 +261,7 @@ unsigned int indexTerm(const char documentId[], const char documentName[], char 
  * Index all the terms of the description attribute  based on a hash function
  */
 void indexEntry(Product *product) {
-    char *cpDocumentId = (char *)malloc(NUM_OF_DOCUMENTS * sizeof(char));
+    char *cpDocumentId = malloc(NUM_OF_DOCUMENTS * sizeof(char));
     
     strcpy(cpDocumentId, product->id);
     
@@ -276,22 +276,23 @@ void indexEntry(Product *product) {
     
     entries[position] = entry;
     
-    char *cpDescription = (char *)malloc(DESCRIPTION_SIZE * sizeof(char));
+    char *cpDescription = malloc(DESCRIPTION_SIZE * sizeof(char));
     
     strcpy(cpDescription, product->description);
     
-    char *token = strtok(cpDescription, " ");
+    char *token = malloc(TERM_SIZE * sizeof(char));
+    token = strtok(cpDescription, " ");
     
     char *cpToken = NULL;
     
-    char *cpDocumentNameTmp = (char *)malloc(DOCUMENT_NAME_SIZE * sizeof(char));
+    char *cpDocumentNameTmp = malloc(DOCUMENT_NAME_SIZE * sizeof(char));
     strcpy(cpDocumentNameTmp, product->imgFileName);
     
-    char *cpDocumentIdTmp = (char *)malloc(NUM_OF_DOCUMENTS * sizeof(char));
+    char *cpDocumentIdTmp = malloc(NUM_OF_DOCUMENTS * sizeof(char));
     strcpy(cpDocumentIdTmp, cpDocumentId);
     
     while (token != NULL) {
-        cpToken = (char *) malloc(TERM_SIZE * sizeof(char));
+        cpToken = malloc(TERM_SIZE * sizeof(char));
         
         strcpy(cpToken, token);
         
@@ -494,26 +495,32 @@ Product *createPopulatedStructProduct(xmlNodePtr in_cur) {
     
     while (in_cur != NULL) {
         if(!xmlStrcmp(in_cur->name, (const xmlChar *) "id")) {
+            newProduct->id = malloc(NUM_OF_DOCUMENTS * sizeof(char));
             newProduct->id = (char *) in_cur->children->content;
         }
         
         if(!xmlStrcmp(in_cur->name, (const xmlChar *) "descricao")) {
+            newProduct->description = malloc(DESCRIPTION_SIZE * sizeof(char));
             newProduct->description = (char *) in_cur->children->content;
         }
         
         if(!xmlStrcmp(in_cur->name, (const xmlChar *) "preco")) {
+            newProduct->price = malloc(10 * sizeof(char));
             newProduct->price = (char *) in_cur->children->content;
         }
         
         if(!xmlStrcmp(in_cur->name, (const xmlChar *) "img")) {
+            newProduct->imgFileName = malloc(DOCUMENT_NAME_SIZE * sizeof(char));
             newProduct->imgFileName = (char *) in_cur->children->content;
         }
         
         if(!xmlStrcmp(in_cur->name, (const xmlChar *) "titulo")) {
+            newProduct->title = malloc(50 * sizeof(char));
             newProduct->title = (char *) in_cur->children->content;
         }
         
         if(!xmlStrcmp(in_cur->name, (const xmlChar *) "categoria")) {
+            newProduct->category = malloc(50 * sizeof(char));
             newProduct->category = (char *) in_cur->children->content;
         }
         
@@ -646,7 +653,7 @@ int processImageDataOnFolder(const char imgDatasetFolder[]) {
     begin = clock();
 
     if (d) {
-        while ((dir = readdir(d)) != NULL) {
+        while ((dir = readdir(d)) != NULL && count < NUM_OF_DOCUMENTS) {
             if (dir->d_type == DT_REG) {
                 
                 char *imagePath = malloc(strlen(imgDatasetFolder) + strlen(dir->d_name) + 1);
@@ -997,8 +1004,8 @@ int main(int argc, char **argv) {
     if(strcmp(argv[1], "1") == 0) {
         message = "Please, input the text to search";
 
-        DESCRIPTION_SIZE = 500;
-        TERM_SIZE = 20;
+        DESCRIPTION_SIZE = 1000;
+        TERM_SIZE = 50;
 
         result = processXMLData("../dataset/textDescDafitiPosthaus.xml");
     } else if (strcmp(argv[1], "2") == 0) {

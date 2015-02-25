@@ -7,7 +7,7 @@
 /* Max size of the search result */
 #define MAX_SEARCH_RESULT 10
 /* Size of the document name */
-#define DOCUMENT_NAME_SIZE 70
+#define DOCUMENT_NAME_SIZE 90
 /* Number of queries to be evaluated */
 #define NUMBER_OF_QUERIES_TO_EVAL 50 // 50 is the maximum value considering the given evaluated results
 
