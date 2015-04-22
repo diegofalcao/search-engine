@@ -20,6 +20,8 @@ search-engine depends on libxml2 to parse the input XML file. So, in order to co
 
 gcc search-engine.c -I[path_to_libxml2_in_your_OS] -lxml2 -o search-engine
 
+For image searching, it also depends on the img-histogram-gen project available at https://github.com/diegofalcao/img-histogram-gen. So, clone this repo in the same level of the search-engine project.
+
 Screenshot
 =============
 
